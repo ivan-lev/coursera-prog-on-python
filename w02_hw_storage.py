@@ -1,3 +1,6 @@
+"""
+Works localy, need to move the "open file' paet up
+"""
 import os
 import tempfile
 import argparse
