@@ -1,14 +1,13 @@
 import os
 import tempfile
 import argparse
+import json
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--key", help="key that you want to store")
-parser.add_argument("--value", help="value that you want to store for this key")
+parser.add_argument("-k", "--key", help="key that you want to store")
+parser.add_argument("-v", "--value", help="value that you want to store for this key")
 
 args = parser.parse_args()
-
-print(args)
 
 my_key = args.key
 my_value = args.value
