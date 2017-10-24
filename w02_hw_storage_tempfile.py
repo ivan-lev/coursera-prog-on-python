@@ -12,8 +12,10 @@ args = parser.parse_args()
 my_key = args.key
 my_value = args.value
 
+storage_path = os.path.join(tempfile.gettempdir(), 'storage.data')
+
 if my_value == None: # если нет my_value, то формируем словарь и выводим данные по my_key
-    with open('storage.txt', 'r') as f:
+    with open(storage_path, 'r') as f:
         database = {}
         for line in f:                      #считываем построчно файл и разделяем его
             temp_line = line.split()
@@ -29,10 +31,5 @@ if my_value == None: # если нет my_value, то формируем сло�
         
 
 else:    # заносим в хранилище данные по ключу
-    with open('storage.txt', 'a') as f:
+    with open(storage_path, 'a') as f:
         f.write(str(my_key) + ' ' + str(my_value) + '\n')
-    
-
-#storage_path = os.path.join(tempfile.gettempdir(), 'storage.data')
-#with open(storage_path, 'w') as f:
-#    pass
