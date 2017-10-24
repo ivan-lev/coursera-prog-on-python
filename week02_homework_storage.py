@@ -12,10 +12,7 @@ args = parser.parse_args()
 my_key = args.key
 my_value = args.value
 
-print(my_key)
-print(my_value)
-
-if my_value == None:
+if my_value == None: # если нет my_value, то формируем словарь и выводим данные по my_key
     with open('storage.txt', 'r') as f:
         database = {}
         for line in f:                      #считываем построчно файл и разделяем его
@@ -27,13 +24,14 @@ if my_value == None:
                 new_value.append(temp_line[1])          #и перезаписываем список по ключу
                 database[temp_line[0]] = new_value
         value_list = database.get(my_key)
-        for value in value_list:
-            print(value, end = ' ')
+        print(','.join(value_list))
+        #print(a)
+        
 
-else:
-    # заносим в хранилище данные по ключу
-    pass
-
+else:    # заносим в хранилище данные по ключу
+    with open('storage.txt', 'a') as f:
+        f.write(str(my_key) + ' ' + str(my_value) + '\n')
+    
 
 #storage_path = os.path.join(tempfile.gettempdir(), 'storage.data')
 #with open(storage_path, 'w') as f:
