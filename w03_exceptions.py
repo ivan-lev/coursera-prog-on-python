@@ -50,4 +50,4 @@ try:
         raise ValueError("файл не существует", filename)
 except ValueError as err:
     message, code = err.args[0], err.args[1]
-    print(message, code)
+    print('Печатаем через блок except:', message, code)
