@@ -34,9 +34,6 @@ class Truck(CarBase):
     def get_body_volume(self):
         return self.body_width * self.body_height * self.body_length
 
-        #Для грузового автомобиля необходимо разделить характеристики кузова на отдельные составляющие body_length, body_width, body_height. Разделитель — латинская буква x. Характеристики кузова могут быть заданы в виде пустой строки, в таком случае все составляющие равны 0. Обратите внимание на то, что характеристики кузова должны быть вещественными числами.
-        #Также для класса грузового автомобиля необходимо реализовать метод get_body_volume, возвращающий объем кузова в метрах кубических.
-
 
 class SpecMachine(CarBase):
     def __init__(self, car_type, brand, photo_file_name, carrying, extra):
@@ -68,10 +65,7 @@ def get_car_list(csv_filename):
             if row != []:
                 if row[0] != '':
                     car_list.append(row)
-        #for car in car_list:
-        #    print(car)
-    #далее мы напишем код, который берёт данные из car_list и на их основе создаёт
-    #объекты в списке object_list, затем функция get_car_list возвращает этот список
+
     for car in car_list:
         if check_car_data(car) == False:
             continue
@@ -83,7 +77,7 @@ def get_car_list(csv_filename):
             car_carry = float(car[5])
             car_extra = car[6]
             if car[0] == 'car':
-                object_list.append(Car(car[0], car_brand, car_photo, car_carry, car[2]))
+                object_list.append(Car(car[0], car_brand, car_photo, car_carry, car_ps))
             elif car[0] == 'truck':
                 if car[4] == '':
                     body_width, body_height, body_length = 0, 0, 0
@@ -95,13 +89,12 @@ def get_car_list(csv_filename):
                 object_list.append(SpecMachine(car[0], car_brand, car_photo, car_carry, car_extra))
     return object_list
 
-get_car_list(input())
+
 #csv_filename = 'e:\Python\coursera-prog-on-python\coursera-prog-on-python\coursera_week3_cars.csv'
+#x = get_car_list(csv_filename)
+#for i in x:
+#    print(i.__dict__)
 
 #answer = get_car_list(csv_filename)
 #for i in answer:
 #    print(i.__dict__)
-
-#a = []
-#a.append(SpecMachine('brand', 'photo_file_name', 'carrying', 'car_type', 'extra'))
-#print(a)
