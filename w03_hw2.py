@@ -1,9 +1,5 @@
 import os, csv
 
-empty = ''
-
-csv_filename = 'e:\Python\coursera-prog-on-python\coursera-prog-on-python\coursera_week3_cars.csv'
-
 class CarBase:
     def __init__(self, car_type, brand, photo_file_name, carrying):
         self.car_type = car_type
@@ -26,40 +22,40 @@ class Car(CarBase):
 
 
 class Truck(CarBase):
-    def __init__(self, car_type, brand, photo_file_name, carrying, body_length, body_width, body_height):
+    def __init__(self, car_type, brand, photo_file_name, carrying, body_width, body_height, body_length):
         self.car_type = car_type
         self.brand = brand
         self.photo_file_name = photo_file_name
         self.carrying = carrying
-        self.body_whl = body_whl
-        self.body_length = body_length
         self.body_width = body_width
         self.body_height = body_height
-
-    def whl_split(self, body_whl):
-        if body_whl == '':
-            pass
-        else:
-            characteristics = body_whl.split('x')
-            body_length = float(characteristics[0])
-            body_width = float(characteristics[1])
-            body_height = float(characteristics[2])
+        self.body_length = body_length
 
     def get_body_volume(self):
-        return body_length * body_width * body_height
+        return self.body_width * self.body_height * self.body_length
 
         #Для грузового автомобиля необходимо разделить характеристики кузова на отдельные составляющие body_length, body_width, body_height. Разделитель — латинская буква x. Характеристики кузова могут быть заданы в виде пустой строки, в таком случае все составляющие равны 0. Обратите внимание на то, что характеристики кузова должны быть вещественными числами.
         #Также для класса грузового автомобиля необходимо реализовать метод get_body_volume, возвращающий объем кузова в метрах кубических.
 
 
 class SpecMachine(CarBase):
-    def __init__(self, brand, photo_file_name, carrying, car_type, extra):
+    def __init__(self, car_type, brand, photo_file_name, carrying, extra):
+        self.car_type = car_type
         self.brand = brand
         self.photo_file_name = photo_file_name
         self.carrying = carrying
         self.extra = extra
-        self.car_type = car_type
 
+
+def check_car_data(car):
+    if car[0] == 'car' and car[1] != '' and car[2] != '' and car[3] != '' and car[5] != '':
+        return True
+    elif car[0] == 'truck' and car[1] != '' and car[3] != '' and car[5] != '':
+        return True
+    elif car[0] == 'spec_machine' and car[1] != '' and car[3] != '' and car[5] != '' and car[6] != '':
+        return True
+    else:
+        return False
 
 
 def get_car_list(csv_filename):
@@ -72,20 +68,40 @@ def get_car_list(csv_filename):
             if row != []:
                 if row[0] != '':
                     car_list.append(row)
-        for car in car_list:
-            print(car)
+        #for car in car_list:
+        #    print(car)
     #далее мы напишем код, который берёт данные из car_list и на их основе создаёт
     #объекты в списке object_list, затем функция get_car_list возвращает этот список
     for car in car_list:
-        if len(car) < 7:
+        if check_car_data(car) == False:
             continue
         else:
-            if
-    return car_list
+            car_brand = car[1]
+            car_ps =  int(car[2]) if car[2] != '' else ''
+            car_photo = car[3]
+            car_whl = car[4]
+            car_carry = float(car[5])
+            car_extra = car[6]
+            if car[0] == 'car':
+                object_list.append(Car(car[0], car_brand, car_photo, car_carry, car[2]))
+            elif car[0] == 'truck':
+                if car[4] == '':
+                    body_width, body_height, body_length = 0, 0, 0
+                else:
+                    body_whl = car[4].split('x')
+                    body_width, body_height, body_length = float(body_whl[0]), float(body_whl[1]), float(body_whl[2])
+                object_list.append(Truck(car[0], car_brand, car_photo, car_carry, body_width, body_height, body_length))
+            elif car[0] == 'spec_machine':
+                object_list.append(SpecMachine(car[0], car_brand, car_photo, car_carry, car_extra))
+    return object_list
 
+get_car_list(input())
+#csv_filename = 'e:\Python\coursera-prog-on-python\coursera-prog-on-python\coursera_week3_cars.csv'
 
-get_car_list(csv_filename)
+#answer = get_car_list(csv_filename)
+#for i in answer:
+#    print(i.__dict__)
 
-a = []
-a.append(SpecMachine('brand', 'photo_file_name', 'carrying', 'car_type', 'extra'))
-print(a)
+#a = []
+#a.append(SpecMachine('brand', 'photo_file_name', 'carrying', 'car_type', 'extra'))
+#print(a)
